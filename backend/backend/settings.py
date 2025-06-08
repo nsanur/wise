@@ -105,7 +105,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',       # PostgreSQL veritabanı adınız
+        'NAME': 'postgres_cnu4',       # PostgreSQL veritabanı adınız
         'USER': 'postgres_cnu4_user',      # PostgreSQL kullanıcı adınız
         'PASSWORD': 'kadZ6kTVtd3lra8JvVJaEd1810ObxTCb',  # PostgreSQL şifreniz
         'HOST': 'dpg-d12tlkbe5dus73cptdv0-a',     # Sunucu adresi (genellikle localhost)
