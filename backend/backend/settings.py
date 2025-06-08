@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-kivp+2%yd4&w=xylsv^i*$o(o7$$wi7^c1lwypcq#8346q@-=&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
 
 
 # Application definition
@@ -73,7 +74,7 @@ TEMPLATES = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # React çalıştığı adres
+    # "http://localhost:5173",  # React çalıştığı adres
     "https://wise-byn.onrender.com",
 ]
 
