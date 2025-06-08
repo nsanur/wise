@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-kivp+2%yd4&w=xylsv^i*$o(o7$$wi7^c1lwypcq#8346q@-=&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'wise-backend.onrender.com',
+    'wise-byn.onrender.com'
+]
 
 
 
