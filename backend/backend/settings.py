@@ -74,6 +74,7 @@ TEMPLATES = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # React çalıştığı adres
+    "https://wise-byn.onrender.com",
 ]
 
 REST_FRAMEWORK = {
@@ -101,9 +102,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',       # PostgreSQL veritabanı adınız
-        'USER': 'postgres',      # PostgreSQL kullanıcı adınız
-        'PASSWORD': '123',  # PostgreSQL şifreniz
-        'HOST': 'localhost',     # Sunucu adresi (genellikle localhost)
+        'USER': 'postgres_cnu4_user',      # PostgreSQL kullanıcı adınız
+        'PASSWORD': 'kadZ6kTVtd3lra8JvVJaEd1810ObxTCb',  # PostgreSQL şifreniz
+        'HOST': 'dpg-d12tlkbe5dus73cptdv0-a',     # Sunucu adresi (genellikle localhost)
         'PORT': '5432',          # Varsayılan port
     }
 }
