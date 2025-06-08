@@ -1,0 +1,8 @@
+torch>=1.9.1
+torchvision>=0.10.1
+ultralytics>=8.2.34
+Pillow>=10.3.0
+opencv-python-headless>=4.5.3
+numpy>=1.21.0
+requests>=2.32.2
+psycopg2-binary>=2.9.0

@@ -4,6 +4,10 @@ import { tr } from 'date-fns/locale';
 import { AlertCircle, CheckCircle, ChevronLeft, ChevronRight, Coffee } from 'lucide-react';
 import { foodNameMap } from '../foodNameMap';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+
+
 const categories = ['corba', 'ana-yemek', 'yan-yemek', 'ek-yemek'];
 
 const categoryNameMap: Record<string, string> = {
@@ -35,7 +39,7 @@ const Results: React.FC = () => {
       setError(null);
       try {
         const accessToken = localStorage.getItem('token');
-        const res = await fetch('http://localhost:8000/api/food/results/', {
+        const res = await fetch(`${API_BASE_URL}/api/food/results/`, {
           headers: accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {},
         });
         if (!res.ok) {

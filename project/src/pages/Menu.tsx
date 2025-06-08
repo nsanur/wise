@@ -4,6 +4,10 @@ import { foodNameMap } from '../foodNameMap';
 
 import "react-datepicker/dist/react-datepicker.css";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+
+
 // Türkçe ay adları
 const MONTHS_TR = [
   "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
@@ -242,7 +246,7 @@ const Menu: React.FC = () => {
         setLoading(true);
         setError(null);
         const accessToken = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8000/api/food/results/', {
+        const response = await fetch(`${API_BASE_URL}/api/food/results/`, {
           headers: accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {},
         });
         if (!response.ok) {

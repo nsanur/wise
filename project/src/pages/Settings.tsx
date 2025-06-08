@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Bell, Lock, User, Globe } from 'lucide-react';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+
 interface SettingsProps {
   userName: string;
   onUpdateProfile: (name: string) => void;
@@ -31,7 +34,7 @@ const Settings: React.FC<SettingsProps> = ({ userName, onUpdateProfile }) => {
       setError(null);
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:8000/api/food/auth/me/', {
+        const res = await fetch(`${API_BASE_URL}/api/food/auth/me/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           }
@@ -83,7 +86,7 @@ const Settings: React.FC<SettingsProps> = ({ userName, onUpdateProfile }) => {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:8000/api/food/auth/me/', {
+      const res = await fetch(`${API_BASE_URL}/api/food/auth/me/`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

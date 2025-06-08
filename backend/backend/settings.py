@@ -90,10 +90,21 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',       # PostgreSQL veritabanı adınız
+        'USER': 'postgres',      # PostgreSQL kullanıcı adınız
+        'PASSWORD': '123',  # PostgreSQL şifreniz
+        'HOST': 'localhost',     # Sunucu adresi (genellikle localhost)
+        'PORT': '5432',          # Varsayılan port
     }
 }
 

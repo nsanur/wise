@@ -11,6 +11,9 @@ import Settings from './pages/Settings';
 import Auth from './pages/Auth';
 import Landing from './pages/Landing';
 
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentPage, setCurrentPage] = useState('dashboard');
@@ -28,7 +31,7 @@ function App() {
   // Düzeltilmiş handleLogin fonksiyonu:
   const handleLogin = async (email: string, password: string) => {
     try {
-      const response = await fetch('http://localhost:8000/api/food/auth/login/', {
+      const response = await fetch(`${API_BASE_URL}/api/food/auth/login/`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -52,7 +55,7 @@ function App() {
     lastName: string
   ): Promise<boolean> => {
     try {
-      const response = await fetch("http://localhost:8000/api/food/auth/register/", {
+      const response = await fetch(`${API_BASE_URL}/api/food/auth/register/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, first_name: firstName, last_name: lastName }),

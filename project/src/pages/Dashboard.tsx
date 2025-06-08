@@ -5,6 +5,10 @@ import { tr } from 'date-fns/locale';
 import "react-datepicker/dist/react-datepicker.css";
 import { foodNameMap } from '../foodNameMap';
 
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+
 registerLocale('tr', tr);
 
 interface UploadedImage {
@@ -103,7 +107,7 @@ const Dashboard = () => {
         const fetchStats = async () => {
             try {
                 const accessToken = localStorage.getItem('token');
-                const statsResponse = await fetch('http://localhost:8000/api/food/results/', {
+                const statsResponse = await fetch(`${API_BASE_URL}/api/food/results/`, {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`
                     }
@@ -184,7 +188,7 @@ const Dashboard = () => {
         const accessToken = localStorage.getItem('token');
 
         try {
-            const response = await fetch('http://localhost:8000/api/food/upload/', {
+            const response = await fetch(`${API_BASE_URL}/api/food/upload/`, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -207,7 +211,7 @@ const Dashboard = () => {
             setError(null);
 
             // Fetch stats immediately after successful upload
-            const statsResponse = await fetch('http://localhost:8000/api/food/results/', {
+            const statsResponse = await fetch(`${API_BASE_URL}/api/food/results/`, {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`
                 }
