@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'wise-backend.onrender.com',
-    'wise-byn.onrender.com'
+    'wise-byn.onrender.com',
+    'wise-plum-eight.vercel.app'
 ]
 
 
