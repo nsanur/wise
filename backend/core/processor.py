@@ -1,18 +1,17 @@
 import os
-import cv2
-import torch
 import shutil
 import tempfile
 from pathlib import Path
 from datetime import datetime
 
 from .config import FOOD_TYPES  # Aynı dizindeki config'i import et
-from .utils_image import preprocess_image
 from .models import FoodAnalysis  # FoodAnalysis modelini import et
-from .model_loader import load_models
 from .utils_image import preprocess_image
 
 def process_detection(image_path, models, output_base_dir, analysis_date=None, user=None):
+    import cv2
+    import torch
+
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     img = cv2.imread(image_path)
     if img is None:
@@ -99,7 +98,6 @@ def process_detection(image_path, models, output_base_dir, analysis_date=None, u
             if food_category in type_model_mapping:
                 type_model_name = type_model_mapping[food_category]
                 if type_model_name in models:
-                    # img_tensor yukarıda üretildiyse tekrar preprocess etme
                     if img_tensor is None:
                         img_tensor = preprocess_image(temp_path)
                         img_tensor = img_tensor.to(device)
@@ -109,14 +107,12 @@ def process_detection(image_path, models, output_base_dir, analysis_date=None, u
                     type_probs = torch.nn.functional.softmax(type_prediction[0], dim=0)
                     type_confidence, food_type_index = torch.max(type_probs, 0)
 
-                    # Yemek türü adını al
                     if food_category in FOOD_TYPES and food_type_index.item() in FOOD_TYPES[food_category]:
                         type_name = FOOD_TYPES[food_category][food_type_index.item()]
 
-            # Veritabanına kaydet
             try:
                 FoodAnalysis.objects.create(
-                    user=user,  # <-- Burada user parametresini ekledik!
+                    user=user,
                     category=food_category,
                     food_type=type_name,
                     waste_count=1 if waste_status == 'israf-var' else 0,
@@ -128,7 +124,6 @@ def process_detection(image_path, models, output_base_dir, analysis_date=None, u
             except Exception as e:
                 print(f"Error creating FoodAnalysis record: {e}")
 
-            # Çıktı dosyasını kaydet
             final_dir = os.path.join(output_base_dir, food_category, type_name, waste_status)
             Path(final_dir).mkdir(parents=True, exist_ok=True)
 
@@ -152,9 +147,10 @@ def process_detection(image_path, models, output_base_dir, analysis_date=None, u
 
 
 def process_directory(input_directory, models, output_base_dir, analysis_date=None, user=None):
-    """
-    Bir dizindeki tüm görüntüleri işler
-    """
+    import os
+    import shutil
+    # Yukarıdaki modüller tekrar import edilse de sorun olmaz, RAM açısından avantaj sağlar
+
     if os.path.exists(output_base_dir):
         shutil.rmtree(output_base_dir)
     os.makedirs(output_base_dir, exist_ok=True)
@@ -168,7 +164,6 @@ def process_directory(input_directory, models, output_base_dir, analysis_date=No
     for image_path in image_paths:
         try:
             print(f"\nProcessing image: {image_path}")
-            # analysis_date ve user parametrelerini process_detection fonksiyonuna yollayalım
             process_detection(image_path, models, output_base_dir, analysis_date=analysis_date, user=user)
         except Exception as e:
             print(f"Error processing {image_path}: {str(e)}")
