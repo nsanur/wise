@@ -25,9 +25,9 @@ def load_models():
             print(f"Model dosyası bulunamadı: {model_path}")
             continue
         print(f"Loading model: {model_name}")
-        model = torch.hub.load('ultralytics/yolov5', 'custom', path=str(model_path))  # str() ile aktar
+        # Eğer doğrudan torch.save(model) ile kaydedildiyse:
+        model = torch.load(str(model_path), map_location="cpu")
         model.eval()
         models[model_name] = model
 
     return models
-
