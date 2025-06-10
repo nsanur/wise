@@ -1,10 +1,12 @@
 import os
-from .model_loader import load_models  # Aynı dizindeki model_loader'ı import et
-from .processor import process_directory
-from .stats_utils import collect_and_print_statistics
 import shutil
 
 def main(image_paths, analysis_date, user):
+    # importları fonksiyon içine aldık
+    from .model_loader import load_models  # Aynı dizindeki model_loader'ı import et
+    from .processor import process_directory
+    from .stats_utils import collect_and_print_statistics
+
     output_base_dir = 'outputs'
     image_directory = 'images'
 
@@ -23,13 +25,10 @@ def main(image_paths, analysis_date, user):
         return
 
     print("Starting image processing...")
-    # image_paths ve analysis_date parametrelerini process_directory'ye gönder
     process_directory(image_directory, models, output_base_dir, analysis_date=analysis_date, user=user)
-
 
     collect_and_print_statistics(output_base_dir, analysis_date=analysis_date)
 
-    # İşlem tamamlandıktan sonra images dizini silinir
     if os.path.exists(image_directory):
         shutil.rmtree(image_directory)
         print(f"Image directory '{image_directory}' removed.")
@@ -37,5 +36,4 @@ def main(image_paths, analysis_date, user):
     print("Tüm işlemler tamamlandı.")
 
 if __name__ == "__main__":
-    # Test amaçlı bir tarih ve dosya listesiyle çağırabilirsin
-    main([], None)
+    main([], None, None)
