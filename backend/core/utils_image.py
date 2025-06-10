@@ -1,9 +1,9 @@
 #  core/utils_image.py
 
-from PIL import Image
-import torchvision.transforms as transforms
-
 def preprocess_image(image_path, target_size=(224, 224)):
+    from PIL import Image
+    import torchvision.transforms as transforms
+
     transform = transforms.Compose([
         transforms.Resize(target_size),
         transforms.CenterCrop(target_size),
