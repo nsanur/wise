@@ -1,12 +1,11 @@
 #  core/model_loader.py
 
 from pathlib import Path
-import os
 
 def load_models():
     import torch
-    base_path = Path(__file__).resolve().parent.parent / "models"
 
+    base_path = Path(__file__).resolve().parent.parent / "models"
     model_paths = {
         'wisePlate': base_path / 'wisePlate.pt',
         'wiseSoup': base_path / 'wiseSoup.pt',
@@ -20,12 +19,15 @@ def load_models():
     }
 
     models = {}
+
     for model_name, model_path in model_paths.items():
         if not model_path.exists():
             print(f"Model dosyası bulunamadı: {model_path}")
             continue
         print(f"Loading model: {model_name}")
-        model = torch.load(str(model_path), map_location="cpu", weights_only=False)
+
+        # Tüm modeller YOLOv5, hepsini torch.hub.load ile yükle
+        model = torch.hub.load('ultralytics/yolov5', 'custom', path=str(model_path), force_reload=False)
         model.eval()
         models[model_name] = model
 
