@@ -12,7 +12,6 @@ from django.utils import timezone
 import os
 
 from .models import FoodAnalysis
-from .main import main as process_images
 
 @api_view(['GET', 'PATCH'])
 @permission_classes([IsAuthenticated])
@@ -101,7 +100,8 @@ def upload_images(request):
                 destination.write(chunk)
         saved_files.append(file_path)
 
-    # Kullanıcıyı ilet!
+    # Büyük ML/vision importu burada fonksiyon içinde:
+    from .main import main as process_images
     process_images(saved_files, analysis_date, request.user)
 
     return Response({'message': 'Images uploaded and processed successfully.'}, status=status.HTTP_200_OK)
