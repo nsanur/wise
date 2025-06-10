@@ -1,10 +1,10 @@
 #  core/model_loader.py
 
 from pathlib import Path
-import torch
 import os
 
 def load_models():
+    import torch
     base_path = Path(__file__).resolve().parent.parent / "models"
 
     model_paths = {
@@ -25,8 +25,7 @@ def load_models():
             print(f"Model dosyası bulunamadı: {model_path}")
             continue
         print(f"Loading model: {model_name}")
-        # Eğer doğrudan torch.save(model) ile kaydedildiyse:
-        model = torch.load(str(model_path), map_location="cpu")
+        model = torch.load(str(model_path), map_location="cpu", weights_only=False)
         model.eval()
         models[model_name] = model
 
